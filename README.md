@@ -1,6 +1,6 @@
 # Minecraft Server Setup Tooling
-Jakob Conner
-CS 312 - Course Project Part 2
+Jakob Conner<br/>
+CS 312 - Course Project Part 2<br/>
 Spring 2025
 
 ## Background
@@ -9,23 +9,25 @@ This is a set of tools to set up a Minecraft server running in a docker containe
 Terraform is used to provision the instance. Certain settings may be tweaked in `./terraform/variables.tf`, but do so at your own risk.
 
 Ansible is then used to set up and launch the server via Docker. By default, [itzg's minecraft-server docker image](https://hub.docker.com/r/itzg/minecraft-server) is used, but you may change your desired image in `./ansible/playbook.yml`. However, as with the Terraform settings, do so at your own risk.
-<br/>
+
+&nbsp;
 ![Pipeline Diagram](./doc_assets/Pipeline%20Diagram.png "Pipeline Diagram")
-</br>
+&nbsp;
+
 Once run, your project root directory will contain a file named `private_key.pem`. Save this key, as you'll need it if you wish to make any further adjustments to the server in the future.
 
 ## Requirements
 - Access to AWS
 - [Terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli) - Tested on version 1.12.2
 - [Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html) - Tested on version 2.18.5
-    - During development, ansible was installed directly via apt. You may use the pip version, but no guarentees are made about compatibility.
+    - During development, ansible was installed directly via apt. You may use the pip version, but no guarantees are made about compatibility.
 - [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) - Tested on version 2.27.34
 - AWS CLI Credentials
     - The easiest way to set these up is to paste your credentials into ~/.aws/credentials. However, there are other methods - such as `aws configure` - that you are free to use as well.
     - For those using AWS Learner Lab, your credentials may be found under the "AWS Details" button on the top bar of the lab, to the right of the start and end lab buttons.
     - Those with other forms of AWS access will need to locate their own credentials. Please see the appropriate [AWS documentation](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-prereqs.html).
 
-This tooling was designed for WSL with Ubuntu 24.04 LTS. Ubuntu 24.04 will also be selected for the EC2 instance hosting the server. You are free to use a different operating system, but no guarentees about compatibility are made and no support will be provided.
+This tooling was designed for WSL with Ubuntu 24.04 LTS. Ubuntu 24.04 will also be selected for the EC2 instance hosting the server. You are free to use a different operating system, but no guarantees about compatibility are made and no support will be provided.
 
 ## Usage Guide
 
@@ -47,7 +49,7 @@ In addition, to verify that your AWS credentials are appropriately configured, y
 ## Provisioning Resources via Terraform
 First, navigate into the terraform directory with the command `cd terraform`.
 
-Next, run the following commands in sequence to setup Terraform and provision resources.
+Next, run the following commands in sequence to set up Terraform and provision resources.
 
 ```
 terraform init
