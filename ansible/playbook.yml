@@ -1,0 +1,67 @@
+- name: Minecraft server setup
+  hosts: minecraft
+  become: true
+
+  vars:
+    docker_users:
+      - ubuntu
+
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: true
+
+    - name: Install required dependency packages
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - gnupg
+          - lsb-release
+        state: present
+
+    - name: Add Docker GPG key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+    
+    - name: Add Docker repository
+      apt_repository:
+        repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+        state: present
+
+    - name: Install Docker
+      apt:
+        name: docker-ce
+        state: latest
+        update_cache: true
+
+    - name: Add user to Docker
+      user:
+        name: "{{ item  }}"
+        groups: docker
+        append: true
+      loop: "{{ docker_users }}"
+
+    - name: Start Docker
+      service:
+        name: docker
+        state: started
+        enabled: true
+
+    - name: Get server Docker image
+      docker_image:
+        name: itzg/minecraft-server
+        source: pull
+
+    - name: Start the image
+      docker_container:
+        name: minecraft
+        image: itzg/minecraft-server
+        state: started
+        restart_policy: always
+        ports:
+          - "25565:25565"
+        env:
+          EULA: "TRUE"
